@@ -1,0 +1,33 @@
+url: http://localhost:8080/guestbook
+user: jazzman
+color: true
+prompt: true
+disabled_commands:
+    db drop
+core config:
+	dbname: guestbook
+	dbuser: bn_wordpress
+	dbpass: c1f2ac36e6
+	dbhost: localhost:3306
+	dbcharset: utf8
+	dbprefix: wp_
+	extra-php: |
+	  define( 'SAVEQUERIES', true );
+	  define( 'SCRIPT_DEBUG', true );
+	  define( 'WP_DEBUG', true );
+	  define( 'WP_DEBUG_DISPLAY', true );
+	  define( 'WP_DEBUG_LOG', true );
+	  define( 'WP_CACHE', false );
+	  define( 'COMPRESS_CSS', true );
+	  define( 'COMPRESS_SCRIPTS', true );
+	  define( 'ENFORCE_GZIP', true );
+
+      $server_host = str_replace( 'www.', '', $_SERVER['HTTP_HOST'] ). '/guestbook';
+      $server_protocol = 0 === stripos( $_SERVER['SERVER_PROTOCOL'], 'https' ) ? 'https://' : 'http://';
+      $site_url = $server_protocol . $server_host;
+      define( 'WP_HOME', $site_url);
+      define( 'WP_SITEURL', $site_url);
+      define( 'WP_ALLOW_REPAIR', true );
+      define( 'AUTOSAVE_INTERVAL', 160 );
+      define( 'EMPTY_TRASH_DAYS', 1 );
+      define( 'WP_POST_REVISIONS', false );
