@@ -1,17 +1,23 @@
-</div><!-- #content -->
-<footer id="colophon" class="site-footer" role="contentinfo">
-  <div class="site-info">
-    <a href="<?php echo esc_url(__('https://wordpress.org/', 'guestbook')); ?>"><?php printf(
-        esc_html__('Proudly powered by %s', 'guestbook'), 'WordPress'
-      ); ?></a>
-    <span class="sep"> | </span>
-    <?php printf(
-      esc_html__('Theme: %1$s by %2$s.', 'guestbook'), 'guestbook',
-      '<a href="https://automattic.com/" rel="designer">JazzMan</a>'
-    ); ?>
-  </div><!-- .site-info -->
-</footer><!-- #colophon -->
-</div><!-- #page -->
+</main>
+<footer id="page-footer">
+  <div class="footer-wrapper">
+    <div class="footer-navigation">
+      <div class="container">
+        <div class="vertical-aligned-elements">
+          <div class="element width-50">(C) 2016 Your Company, All right reserved</div>
+          <div class="element width-50 text-align-right"><a href="index.html">Home</a><a href="listing-grid-right-sidebar.html">Listings</a><a href="submit.html">Submit Item</a><a href="contact.html">Contact</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+</div>
+
 <?php wp_footer(); ?>
+<div id="modalFrame" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog width-800px">
+    <div class="modal-content"></div>
+  </div>
+</div>
 </body>
 </html>

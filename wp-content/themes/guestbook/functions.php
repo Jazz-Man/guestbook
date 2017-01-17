@@ -1,4 +1,7 @@
 <?php
+    define('THEME_DIR', get_template_directory());
+    define('INC_DIR', THEME_DIR . '/inc');
+    define('CLASS_DIR', INC_DIR . '/class');
     $setup_theme = new Plugin_API_Manager('after_setup_theme');
     $setup_theme->addCallback(
         function () {
@@ -7,7 +10,7 @@
             add_theme_support('post-thumbnails');
             register_nav_menus(
                 [
-                    'menu-1' => esc_html__('Primary', 'guestbook'),
+                    'primary_menu' => esc_html__('Primary', 'guestbook'),
                 ]
             );
             add_theme_support(
@@ -91,5 +94,43 @@
             }
         }
     );
-    require get_template_directory() . '/inc/template-tags.php';
-    require get_template_directory() . '/inc/extras.php';
+    $body_class = new Plugin_API_Manager('body_class');
+    $body_class->addCallback(
+        function ($body_class) {
+            $whitelist = [
+                'home',
+                'error404',
+                'blog',
+                'archive',
+                'search',
+                'single',
+                'author',
+                'category',
+                'tag',
+                'page',
+                'logged-in'
+            ];
+
+            return array_intersect($body_class, $whitelist);
+        }
+    );
+    require INC_DIR . '/template-tags.php';
+    require INC_DIR . '/extras.php';
+    spl_autoload_register(
+        function ($class) {
+            $class = ltrim($class, '\\');
+            if (0 !== stripos($class, 'GB\\')) {
+                return;
+            }
+            $parts = explode('\\', $class);
+            array_shift($parts);
+            $last    = array_shift($parts) . '.php';
+            $parts[] = $last;
+            $objects = CLASS_DIR . '/' . implode($parts, '/');
+            if (file_exists($objects)) {
+                require_once $objects;
+            }
+        }
+    );
+    new \GB\GB_Init();
+

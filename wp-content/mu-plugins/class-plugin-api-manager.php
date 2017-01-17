@@ -44,18 +44,16 @@
             if (null !== $priority) {
                 $this->setPriority($priority);
             }
-            if(null !== $accepted_args){
+            if (null !== $accepted_args) {
                 $this->setAcceptedArgs($accepted_args);
             }
-
-            $priority = $priority ?? $this->priority;
+            $priority      = $priority ?? $this->priority;
             $accepted_args = $accepted_args ?? $this->accepted_args;
-
-            if(is_array($this->hook)){
-                foreach ($this->hook as $hook){
+            if (is_array($this->hook)) {
+                foreach ($this->hook as $hook) {
                     add_filter($hook, $callback, $priority, $accepted_args);
                 }
-            }else{
+            } else {
                 add_filter($this->hook, $callback, $priority, $accepted_args);
             }
         }
@@ -67,6 +65,7 @@
         {
             $this->hook = $hook;
         }
+
         /**
          * @param int $priority
          */
@@ -112,7 +111,7 @@
         }
 
         /**
-         * @param $hook
+         * @param      $hook
          * @param bool $callback
          *
          * @return false|int
@@ -125,17 +124,23 @@
         }
 
         /**
-         * @param $hook
-         * @param $callback
+         * @param     $hook
+         * @param     $callback
          * @param int $priority
          *
          * @return bool
          */
         public function removeCallback($hook = null, $callback, $priority = null)
         {
-            $hook = $hook ?? $this->hook;
+            $hook     = $hook ?? $this->hook;
             $priority = $priority ?? $this->priority;
+            if (is_array($callback)) {
+                foreach ($callback as $c) {
+                    remove_filter($hook, $c, $priority);
+                }
+            } else {
+                remove_filter($hook, $callback, $priority);
+            }
 
-            return remove_filter($hook, $callback, $priority);
         }
     }
