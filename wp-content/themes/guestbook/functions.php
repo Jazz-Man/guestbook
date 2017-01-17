@@ -22,6 +22,8 @@
                     'caption',
                 ]
             );
+
+            show_admin_bar(false);
         }
     );
     $enqueue_scripts = new Plugin_API_Manager('wp_enqueue_scripts');

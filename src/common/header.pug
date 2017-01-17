@@ -1,0 +1,109 @@
+header#page-header
+	nav
+		.left
+			a.brand(href='index.html')
+				img(src=require('assets/img/logo.png') alt='')
+		// end left
+		.right
+			.primary-nav.has-mega-menu
+				ul.navigation
+					li.active
+						a(href='#nav-homepages') Home
+					li
+						a(href='map.html') Map
+					li.has-child
+						a(href='#nav-listing') Listing
+						.wrapper
+							#nav-listing.nav-wrapper
+								ul
+									li.has-child
+										a(href='#nav-grid-listing') Grid Listing
+										#nav-grid-listing.nav-wrapper
+											ul
+												li
+													a(href='listing-grid-right-sidebar.html') With Right Sidebar
+												li
+													a(href='listing-grid-left-sidebar.html') With Left Sidebar
+												li
+													a(href='listing-grid-full-width.html') Full Width
+												li
+													a(href='listing-grid-different-widths.html') Different Widths
+												li
+													a(href='listing-grid-3-items.html') 3 Items in Row
+												li
+													a(href='listing-grid-4-items.html') 4 Items in Row
+									li.has-child
+										a(href='#nav-row-listing') Row Listing
+										#nav-row-listing.nav-wrapper
+											ul
+												li
+													a(href='listing-row-right-sidebar.html') Row Right Sidebar
+												li
+													a(href='listing-row-left-sidebar.html') Row Left Sidebar
+					li.mega-menu-parent.has-child
+						a(href='#nav-pages') Pages
+						.wrapper
+							.mega-menu
+								#nav-pages.nav-wrapper
+									.container
+										.row
+											.col-md-4.col-sm-4
+												h4.heading General
+												ul
+													li
+														a(href='faq.html') Faq
+													li
+														a(href='pricing.html') Pricing
+													li
+														a(href='submit.html') Submit Listing
+													li
+														a(href='detail.html') Listing Detail
+													li
+														a(href='detail-2.html') Listing Detail v2
+											// end col-md-3
+											.col-md-4.col-sm-4
+												h4.heading User
+												ul
+													li
+														a(href='profile.html') Profile Edit
+													li
+														a(href='user.html') User Edit
+													li
+														a(href='sign-in.html') Sign In
+													li
+														a(href='register.html') Register
+													li
+														a(href='reset-password.html') Reset Password
+													li
+														a(href='my-listings.html') My Listings
+													li
+														a(href='edit-listing.html') Edit Listing
+													li
+														a(href='reviews.html') Reviews
+											// end col-md-3
+											.col-md-4.col-sm-4
+												h4.heading Other
+												ul
+													li
+														a(href='404.html') 404 Error Page
+													li
+														a(href='terms-and-conditions.html') Terms & Conditions
+													li
+														a(href='how-it-works.html') How It Works
+					li
+						a(href='blog.html') Blog
+					li
+						a(href='contact.html') Contact
+				// end navigation
+			// end primary-nav
+			.secondary-nav
+				a(href='#' data-modal-external-file='modal_sign_in.html' data-target='modal-sign-in') Sign In
+				a.promoted(href='#' data-modal-external-file='modal_register.html' data-target='modal-register') Register
+			// end secondary-nav
+			a.btn.btn-primary.btn-small.btn-rounded.icon.shadow.add-listing(href='#' data-modal-external-file='modal_submit.html' data-target='modal-submit')
+				i.fa.fa-plus
+				span Add listing
+			.nav-btn
+				i
+				i
+				i

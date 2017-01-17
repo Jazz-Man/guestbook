@@ -1,8 +1,5 @@
 <header id="page-header">
     <nav class="bg-primary">
-        <div class="left">
-            <?= get_custom_logo() ?>
-        </div>
         <div class="right">
             <div class="primary-nav has-mega-menu">
                 <?php

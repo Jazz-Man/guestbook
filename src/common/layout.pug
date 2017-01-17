@@ -1,0 +1,30 @@
+include mixins
+
+doctype html
+html(lang=htmlWebpackPlugin.options.lang, manifest=htmlWebpackPlugin.files.manifest)
+	head
+		meta(charset='utf-8')
+		meta(http-equiv='X-UA-Compatible', content='IE=edge')
+		block defaultHead
+			+mobile
+			+title
+			+favicon
+			+injectExtrasHead
+			+CSS
+
+		block head
+	block vars
+		- var bodyClass = ''
+	body(class=bodyClass)
+		.page-wrapper
+			include header
+			#page-content
+				block content
+
+			include footer
+
+		block defaultBody
+			+injectExtrasBody
+			+JS
+
+		block scripts
