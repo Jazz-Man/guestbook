@@ -1,12 +1,11 @@
 <?php
-    /**
-     * Created by PhpStorm.
-     * User: jazzman
-     * Date: 13.01.17
-     * Time: 17:16
-     */
     namespace GB;
 
+    /**
+     * Class GB_Init
+     *
+     * @package GB
+     */
     class GB_Init
     {
 
@@ -20,5 +19,6 @@
             new GB_Filter();
             new GB_Clean_UP_Theme();
             GB_Admin::adminOptionINIT();
+            new GB_Account();
         }
     }

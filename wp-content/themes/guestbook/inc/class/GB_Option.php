@@ -1,17 +1,31 @@
 <?php
   namespace GB;
 
+  /**
+   * Class GB_Option
+   *
+   * @package GB
+   */
   class GB_Option
   {
     private $pages = [];
     private $options;
 
+    /**
+     * GB_Option constructor.
+     */
     public function __construct()
     {
       add_action('admin_menu', [$this, 'addPages']);
       add_action('admin_init', [$this, 'pageInit']);
     }
 
+    /**
+     * @param $function
+     * @param $params
+     *
+     * @return array
+     */
     public function __call($function, $params)
     {
       foreach ($this->pages as $page) {
@@ -55,7 +69,6 @@
 
                       } elseif (isset($subpage_section['fields']) && count($subpage_section['fields']) > 0) {
                         foreach ($subpage_section['fields'] as $subpage_field) {
-                          var_dump($subpage_field);
                           if ($function === "{$subpage_field['id']}_callback") {
                             $this->buildField($subpage_field, $subpage['menu_slug']);
                           }
@@ -104,6 +117,9 @@
       }
     }
 
+    /**
+     * @param array $pages
+     */
     public function addPage(array $pages = [])
     {
       if (isset($pages) && count($pages) > 0) {
@@ -115,6 +131,9 @@
       }
     }
 
+    /**
+     * @param array $page
+     */
     private function buildPage(array $page = [])
     {
       $page_menu_slug                 = $page['menu_slug']?? sanitize_title($page['page_title']);
@@ -152,6 +171,9 @@
       <?php
     }
 
+    /**
+     * @param array $section
+     */
     private function buildSection(array $section)
     {
       if (isset($section['description']) && ! empty($section['description'])) {
@@ -159,6 +181,10 @@
       }
     }
 
+    /**
+     * @param array $field
+     * @param       $page
+     */
     private function buildField(array $field, $page)
     {
       $_dufault_field = [
@@ -320,8 +346,9 @@
               $field['id'], $field_disabled
             );
             foreach ($field['options'] as $option_value => $option_text) {
-              $option_value_att = is_int($option_value) ? false : 'value="' . $option_value . '"';
-              $selected         = selected($option_text, $field_value, false);
+              $option_value_att = $option_value === '' ? '' : 'value="' . $option_value . '"';
+//              $option_value_att = is_int($option_value) ? false : 'value="' . $option_value . '"';
+              $selected         = selected($option_value, $field_value, false);
               printf(
                 '<option %s %s>%s</option>', $option_value_att, $selected, $option_text
               );
@@ -414,6 +441,12 @@
       }
     }
 
+    /**
+     * @param $helper
+     * @param $type
+     *
+     * @return string
+     */
     private function attrHelper($helper, $type)
     {
       $helper = (string)$helper;
@@ -421,6 +454,10 @@
       return __checked_selected_helper($helper, true, false, $type);
     }
 
+    /**
+     * @param $slug
+     * @param $sections
+     */
     private function createSections($slug, $sections)
     {
       foreach ($sections as $section) {
@@ -446,6 +483,12 @@
       }
     }
 
+    /**
+     * @param $page
+     * @param $input
+     *
+     * @return array
+     */
     private function sanitize($page, $input)
     {
       $sanitary_values = [];
@@ -490,6 +533,13 @@
       return $sanitary_values;
     }
 
+    /**
+     * @param      $needle
+     * @param      $haystack
+     * @param bool $strict
+     *
+     * @return bool
+     */
     private function _inArray($needle, $haystack, $strict = false)
     {
       foreach ($haystack as $item) {

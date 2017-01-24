@@ -51,7 +51,7 @@
          * @return string
          * @throws \Exception
          */
-        public static function load(string $name = '', array $args = [], string $dir = '')
+        public static function load(string $name = '', $args = [], string $dir = '')
         {
             if($name === ''){
                 wp_die('The parameter $name can not be empty');

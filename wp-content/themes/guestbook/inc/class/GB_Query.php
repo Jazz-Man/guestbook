@@ -1,17 +1,22 @@
 <?php
-    /**
-     * Created by PhpStorm.
-     * User: jazzman
-     * Date: 13.01.17
-     * Time: 15:56
-     */
+    
     namespace GB;
 
+    /**
+     * Class GB_Query
+     *
+     * @package GB
+     */
     class GB_Query
     {
         public $wp_pages = [];
         public $roles    = [];
 
+        /**
+         * @param $args
+         *
+         * @return bool|\WP_Query
+         */
         public static function make($args)
         {
             $defaults = [
@@ -28,35 +33,49 @@
             return $custom_posts;
         }
 
+        /**
+         * @param int $number
+         *
+         * @return mixed
+         */
         public function get_recent_users($number = 5)
         {
-            global $wpdb;
             $args  = ['fields' => 'ID', 'number' => $number, 'orderby' => 'user_registered', 'order' => 'desc'];
             $users = new WP_User_Query($args);
 
             return $users->results;
         }
 
+        /**
+         * @param $status
+         *
+         * @return int
+         */
         public function count_users_by_status($status)
         {
             $args = ['fields' => 'ID', 'number' => 0];
             if ($status == 'unassigned') {
                 $args['meta_query'][] = [['key' => 'account_status', 'compare' => 'NOT EXISTS']];
-                $users                = new WP_User_Query($args);
+                $users                = new \WP_User_Query($args);
                 foreach ($users->results as $user) {
                     update_user_meta($user, 'account_status', 'approved');
                 }
             } else {
                 $args['meta_query'][] = [['key' => 'account_status', 'value' => $status, 'compare' => '=']];
             }
-            $users = new WP_User_Query($args);
+            $users = new \WP_User_Query($args);
 
             return count($users->results);
         }
 
+        /**
+         * @param     $status
+         * @param int $number
+         *
+         * @return mixed
+         */
         public function get_users_by_status($status, $number = 5)
         {
-            global $wpdb;
             $args                 = [
                 'fields'  => 'ID',
                 'number'  => $number,
@@ -70,11 +89,16 @@
                     'compare' => '=',
                 ],
             ];
-            $users                = new WP_User_Query($args);
+            $users                = new \WP_User_Query($args);
 
             return $users->results;
         }
 
+        /**
+         * @param $user_id
+         *
+         * @return mixed|string
+         */
         public function get_role_by_userid($user_id)
         {
             $role = get_user_meta($user_id, 'role', true);
@@ -85,6 +109,9 @@
             return $role;
         }
 
+        /**
+         * @return mixed
+         */
         public function count_users()
         {
             $result = count_users();
@@ -92,9 +119,13 @@
             return $result['total_users'];
         }
 
+        /**
+         * @param $role
+         *
+         * @return int
+         */
         public function count_users_by_role($role)
         {
-            global $wpdb;
             $args['fields']     = 'ID';
             $args['meta_query'] = [
                 [
@@ -103,26 +134,50 @@
                     'compare' => '=',
                 ],
             ];
-            $users              = new WP_User_Query($args);
+            $users              = new \WP_User_Query($args);
 
             return count($users->results);
         }
 
+        /**
+         * @param $key
+         * @param $post_id
+         * @param $new_value
+         */
         public function update_attr($key, $post_id, $new_value)
         {
             update_post_meta($post_id, '_um_' . $key, $new_value);
         }
 
+        /**
+         * @param $key
+         * @param $post_id
+         *
+         * @return mixed
+         */
         public function get_attr($key, $post_id)
         {
             return get_post_meta($post_id, '_um_' . $key, true);
         }
 
+        /**
+         * @param $key
+         * @param $post_id
+         *
+         * @return bool
+         */
         public function delete_attr($key, $post_id)
         {
             return delete_post_meta($post_id, '_um_' . $key);
         }
 
+        /**
+         * @param      $key
+         * @param null $value
+         * @param null $post_id
+         *
+         * @return bool
+         */
         public function has_post_meta($key, $value = null, $post_id = null)
         {
             if ( ! $post_id) {
@@ -142,6 +197,13 @@
             return false;
         }
 
+        /**
+         * @param $post_type
+         * @param $key
+         * @param $value
+         *
+         * @return bool
+         */
         public static function find_post_id($post_type, $key, $value)
         {
             $posts = get_posts(['post_type' => $post_type, 'meta_key' => $key, 'meta_value' => $value]);
@@ -152,6 +214,11 @@
             return false;
         }
 
+        /**
+         * @param $post_id
+         *
+         * @return mixed
+         */
         public function post_data($post_id)
         {
             $array['form_id'] = $post_id;
@@ -180,10 +247,16 @@
             return $array;
         }
 
+        /**
+         * @param      $key
+         * @param null $array_key
+         * @param null $fallback
+         *
+         * @return int|mixed|null|string
+         */
         public function get_meta_value($key, $array_key = null, $fallback = null)
         {
-            //            global $post;
-            $post_id = get_the_ID();
+                        $post_id = get_the_ID();
             $try     = get_post_meta($post_id, $key, true);
             if (isset($try) && ! empty($try)) {
                 if (is_array($try) && in_array($array_key, $try)) {
@@ -204,13 +277,24 @@
             return ( ! empty($fallback)) ? $fallback : $none;
         }
 
+        /**
+         * @param $post_id
+         *
+         * @return bool|mixed
+         */
         public function is_core($post_id)
         {
             $is_core = get_post_meta($post_id, '_um_core', true);
 
-            return $is_core != '' ? $is_core : false;
+            return $is_core !== '' ? $is_core : false;
         }
 
+        /**
+         * @param bool $add_default
+         * @param null $exclude
+         *
+         * @return array
+         */
         public function get_roles($add_default = false, $exclude = null)
         {
             $exclude_str = '';

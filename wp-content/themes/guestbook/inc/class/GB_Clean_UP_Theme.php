@@ -8,6 +8,7 @@
      */
     class GB_Clean_UP_Theme
     {
+
         /**
          * GB_Clean_UP_Theme constructor.
          */
@@ -29,13 +30,6 @@
 
         public function head_cleanup()
         {
-            add_action(
-                'wp_head', function () {
-                $pattern = '/.*' . preg_quote(esc_url(get_feed_link('comments_' . get_default_feed())), '/')
-                    . '.*[\r\n]+/';
-                echo preg_replace($pattern, '', ob_get_clean());
-            }, 3, 0
-            );
             remove_action('wp_head', 'feed_links_extra', 3);
             remove_action('wp_head', 'rsd_link');
             remove_action('wp_head', 'wlwmanifest_link');

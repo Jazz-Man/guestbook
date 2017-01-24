@@ -1,15 +1,11 @@
 <?php
-    /**
-     * Created by PhpStorm.
-     * User: jazzman
-     * Date: 13.01.17
-     * Time: 15:45
-     */
     namespace GB;
 
+    /**
+     * Class GB_Setup.
+     */
     class GB_Setup
     {
-
         public $core_pages = [];
 
         /**
@@ -17,21 +13,21 @@
          */
         public function __construct()
         {
-            $core_pages       = [
+            $_core_pages      = [
                 'user'     => ['title' => 'User'],
                 'login'    => ['title' => 'Login'],
                 'register' => ['title' => 'Register'],
                 'logout'   => ['title' => 'Logout'],
                 'account'  => ['title' => 'Account'],
-                'password' => ['title' => 'Password Reset']
+                'password' => ['title' => 'Password Reset'],
             ];
-            $this->core_pages = (array)apply_filters('gb_core_pages', $core_pages);
+            $this->core_pages = (array)apply_filters('gb_core_pages', $_core_pages);
             add_action('init', [$this, 'installCorePages']);
         }
 
         public function installCorePages()
         {
-            if (current_user_can('manage_options')/* && !get_option('gb_is_installed')*/) {
+            if (current_user_can('manage_options')) {
                 update_option('gb_is_installed', 1);
                 foreach ($this->core_pages as $slug => $array) {
                     $page_exists = GB_Query::find_post_id('page', '_gb_core', $slug);
@@ -63,6 +59,17 @@
                     }
                 }
             }
+        }
 
+        /**
+         * @param string $page
+         *
+         * @return bool
+         */
+        public static function getCorePage($page = '')
+        {
+            $_page = get_option('gb_core_pages');
+
+            return $_page[$page] ?? false;
         }
     }

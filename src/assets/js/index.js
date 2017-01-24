@@ -22,10 +22,10 @@ function init(e) {
 
 //  iCheck -------------------------------------------------------------------------------------------------------------
   
-  // if ($$(".checkboxes input[type=checkbox]").length || $$(".checkboxes input[type=radio]").length) {
-  //   require('icheck');
-  //   $("input").iCheck();
-  // }
+  if ($$(".checkboxes input[type=checkbox]").length || $$(".checkboxes input[type=radio]").length) {
+    require('icheck');
+    $("input").iCheck();
+  }
   
   
   // $$('.controls-more').on("click",function (e) {
@@ -42,12 +42,14 @@ function init(e) {
   
   // Main.addListingFormInit();
   require('./components/responsive');
+  require('./components/carousel');
+  require('./components/profile');
   // require('./components/navigation');
   // require('./components/input-auto-complete');
   // require('./components/wpas');
   // require('./components/map-simple');
   // require('./components/bg-transfer');
-  require('./module/fitvids');
+  // require('./module/fitvids');
   // require('./module/lightbox');
   // Main.ratingPassive("body");
   // Main.initializeOwl();

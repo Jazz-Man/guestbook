@@ -1,18 +1,9 @@
 <?php
-    /**
-     * Created by PhpStorm.
-     * User: jazzman
-     * Date: 13.01.17
-     * Time: 16:46
-     */
     namespace GB;
 
     class CB_Shortcodes
     {
 
-        /**
-         * CB_Shortcodes constructor.
-         */
         public function __construct()
         {
             $core_page = get_option('gb_core_pages');
@@ -27,31 +18,31 @@
 
         public function guestbook_user($atts)
         {
-            echo 'foo = ' . __CLASS__;
+            echo \Template_Loader::load('accounts/user', $atts);
         }
 
         public function guestbook_login($atts)
         {
-            echo 'foo = ' . __CLASS__;
+            echo \Template_Loader::load('accounts/login', $atts);
         }
 
         public function guestbook_register($atts)
         {
-            echo 'foo = ' . __CLASS__;
+            echo \Template_Loader::load('accounts/register', $atts);
         }
 
         public function guestbook_logout($atts)
         {
-            echo 'foo = ' . __CLASS__;
+            echo \Template_Loader::load('accounts/logout', $atts);
         }
 
         public function guestbook_account($atts)
         {
-            echo 'foo = ' . __CLASS__;
+            echo \Template_Loader::load('accounts/account', $atts);
         }
 
         public function guestbook_password($atts)
         {
-            echo 'foo = ' . __CLASS__;
+            echo \Template_Loader::load('accounts/password', $atts);
         }
     }

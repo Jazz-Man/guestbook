@@ -1,5 +1,11 @@
 <header id="page-header">
     <nav class="bg-primary">
+        <div class="left">
+          <?php printf( '<a href="%1$s" class="navbar-brand" rel="home">%2$s</a>',
+              esc_url( home_url( '/' ) ),
+              get_bloginfo('name')
+            ); ?>
+        </div>
         <div class="right">
             <div class="primary-nav has-mega-menu">
                 <?php

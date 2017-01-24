@@ -68,10 +68,8 @@ input[type="date"]::-webkit-input-placeholder {
   background-color: $color-white;
   cursor: pointer;
   display: inline-block;
-  display: inline-block;
   height: 20px;
   margin-right: 10px;
-  position: relative;
   position: relative;
   top: -1px;
   vertical-align: middle;
@@ -299,9 +297,9 @@ input[type="date"]::-webkit-input-placeholder {
         }
       }
     }
-  .checkboxes {
-    margin-bottom: 0;
-    }
+  //.checkboxes {
+  //  margin-bottom: 0;
+  //  }
   &.has-padding {
     padding-bottom: 30px;
     padding-top: 40px;

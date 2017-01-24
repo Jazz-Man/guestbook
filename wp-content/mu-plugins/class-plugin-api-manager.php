@@ -4,11 +4,6 @@
     Plugin URI:         https://gist.github.com/Jazz-Man/2da99cc7a4ec6f2429425bb65d34bd38
     Description:        A collection of modules to apply theme-agnostic front-end modifications to WordPress.
     Version:            1.0.0
-    Author:             CARL ALEXANDER
-    Author URI:         https://carlalexander.ca/design-system-wordpress-event-management/
-
-    License:            MIT License
-    License URI:        http://opensource.org/licenses/MIT
     */
 
     /**

@@ -1,14 +1,18 @@
 <?php
-    /**
-     * Created by PhpStorm.
-     * User: jazzman
-     * Date: 17.01.17
-     * Time: 13:26
-     */
     namespace GB;
 
+    /**
+     * Class GB_Helper
+     *
+     * @package GB
+     */
     class GB_Helper
     {
+        /**
+         * @param array $attr
+         *
+         * @return string
+         */
         public static function add_attr(array $attr)
         {
             $attributes = '';
@@ -28,4 +32,39 @@
 
             return $attributes;
         }
+
+        /**
+         * @param        $code
+         * @param string $message
+         * @param string $type
+         *
+         * @return string
+         */
+        public static function notice($code, $message, $type = 'danger')
+        {
+            $_error  = new \WP_Error();
+            $message = "<div class='alert alert-{$type}' role='alert'>{$message}</div>";
+            $_error->add($code, $message);
+            return $_error->get_error_message();
+
+        }
+
+        /**
+         * @param string $key
+         * @param array  $array
+         *
+         * @return mixed|null
+         */
+        public static function getAndUnset(string $key, array $array)
+        {
+            if (isset($array[$key])) {
+                $value = $array[$key];
+                unset($array[$key]);
+            } else {
+                $value = null;
+            }
+
+            return $value;
+        }
+
     }
